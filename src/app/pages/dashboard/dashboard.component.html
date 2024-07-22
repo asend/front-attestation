@@ -1,0 +1,26 @@
+<div class="container">
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">First</th>
+    <th scope="col">Last</th>
+    <th scope="col">Handle</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let d of paginateData">
+    <th scope="row">{{d.id}}</th>
+    <td>{{d.anne_diplome}}</td>
+    <td>{{d.code}}</td>
+    <td>{{d.adresse}}</td>
+  </tr>
+  </tbody>
+</table>
+  <app-paginnation [totalItems]="totalItems"
+                  [itemsPerPages]="itemsPerPage"
+                  [currentPage]="currentPage"
+                  (onClick)="changePage($event)"
+
+  ></app-paginnation>
+</div>

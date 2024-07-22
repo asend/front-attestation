@@ -1,0 +1,241 @@
+<div class="container">
+  <form>
+    <fieldset>
+      <legend>ETAT CIVIL</legend>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="prenom">Prénom</label>
+          <input type="text" name="prenom" id="prenom" [(ngModel)]="user.prenom" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="nom">Nom</label>
+          <input type="text" name="nom" id="nom" [(ngModel)]="user.nom" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="nin">CNI</label>
+          <input type="text" name="nin" id="nin" [(ngModel)]="user.nin" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="username">Username</label>
+          <input type="text" name="usename" id="username" [(ngModel)]="user.username" disabled class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="username">Date de Naissance</label>
+          <input type="text" name="datenaissance" id="datenaissance" [(ngModel)]="demandeur.date_naissance"  class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="sexe">Sexe</label>
+          <select class="form-control form-control-lg" [compareWith]="compareSexe" id="sexe" name="sexe" [(ngModel)]="demandeur.sexe">
+            <option *ngFor="let sexe of sexes" [ngValue]="sexe" >
+              {{sexe.libelle}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-4">
+          <label for="rn">Region Naissance </label>
+          <select [compareWith]="compareRegion" id="rn" name="sn" class="form-control" [(ngModel)]="demandeur.region_naissance_id">
+            <option [ngValue]="undefined">----Select----</option>
+            <option *ngFor="let r of regionNaissance" [ngValue]="r">{{r.nom}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="dn">Departement Naissance </label>
+          <select [compareWith]="compareDepartement" id="dn" name="sn" class="form-control" [(ngModel)]="demandeur.departement_naissance_id">
+            <option [ngValue]="undefined" selected="selected">----Select----</option>
+            <option *ngFor="let d of demandeur.region_naissance_id?.departements" [ngValue]="d">{{d.nom}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="lieunaissance">Lieu de naissance</label>
+          <input type="text" name="lieunaissance" id="lieunaissance" [(ngModel)]="demandeur.lieu_naissance" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="sm">Situation Matrimoiniale</label>
+          <select [compareWith]="compareSM" id="sm" name="sm" class="form-control" [(ngModel)]="demandeur.situation_matrimoiniale">
+            <option [ngValue]="undefined">----Select a category----</option>
+            <option *ngFor="let situationMatrimoiniale of situationMatrimoiniales" [ngValue]="situationMatrimoiniale">{{situationMatrimoiniale.libelle}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="nin">Nombre d'enfant</label>
+          <input type="text" name="nombreenfant" id="nombreenfant" [(ngModel)]="demandeur.nombre_enfant" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="nin">Handicaps</label>
+          <ng-multiselect-dropdown
+          id="one"
+          name="handicaps"
+          [placeholder]="'handicaps'"
+          [settings]="dropdownSettings"
+          [data]="handicaps"
+          [(ngModel)]="selectedItems"
+          (onSelect)="onItemSelect($event)"
+          (onDeSelect)="onItemDeSelecte($event)"
+          (onSelectAll)="onSelectAll($event)"
+        >
+        </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="row">
+
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>COORDONNEES</legend>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="rr">Region Residence </label>
+          <select [compareWith]="compareRegion" id="rr" name="sn" class="form-control" [(ngModel)]="demandeur.region_residense_id">
+            <option [ngValue]="undefined">----Select----</option>
+            <option *ngFor="let r of regionNaissance" [ngValue]="r">{{r.nom}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="dr">Departement Residence </label>
+          <select [compareWith]="compareDepartement" id="dr" name="sn" class="form-control" [(ngModel)]="demandeur.departement_residense_id">
+            <option [ngValue]="undefined" selected="selected">----Select----</option>
+            <option *ngFor="let d of demandeur.region_residense_id?.departements" [ngValue]="d">{{d.nom}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="nin">Adresse</label>
+          <input type="text" name="adresse" id="adresse" [(ngModel)]="demandeur.adresse" class="form-control">
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" [(ngModel)]="user.email" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label for="phone">Téléphone</label>
+          <input type="text" name="phone" id="phone" [(ngModel)]="demandeur.telephone" class="form-control">
+        </div>
+        <div class="col-md-4">
+
+        </div>
+
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>FORMATION</legend>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="specialite">Spécialité</label>
+          <input type="text" name="specialite" id="specialite" [(ngModel)]="demandeur.specialite" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="intitule">Intitulé du diplome</label>
+          <input type="text" name="intitule" id="intitule" [(ngModel)]="demandeur.intitule_diplome" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="formation">Niveau Formation</label>
+          <select [compareWith]="compareFormation" id="formation" name="formation" class="form-control" [(ngModel)]="demandeur.formation">
+            <option [ngValue]="undefined" selected="selected">----Select----</option>
+            <option *ngFor="let f of formations" [ngValue]="f">{{f.libelle}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="specialite">Etablissement d'obtention du diplome</label>
+          <input type="text" name="etablissement" id="etablissement" [(ngModel)]="demandeur.etablissement_diplome" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="intitule">Annee d'obtention du diplome</label>
+          <input type="text" name="annee" id="anne" [(ngModel)]="demandeur.anne_diplome" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="autre">Autres diplomes/formations</label>
+          <input type="text" name="autre" id="autre" [(ngModel)]="demandeur.autre_diplome" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label class="mb-2">Image :</label>
+          <input type="file" (change)="onImageUpload($event)" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <button type="submit" (click)="onAddImageDemandeur()" class="btn btn-success">Ajouter Image</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+              <tr> <th>Mon dossier</th> </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let img of demandeur.images">
+                <td><img class="card-img-top img-responsive"
+                         src = "{{apiURL+'/images/loadfromFS/'+img.id}}"
+                         style = "height :50px;width:100px"></td>
+                <td style="width:20%" ><a class="btn btn-danger" (click)="supprimerImage(img)">Supprimer</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>EMPLOI</legend>
+      <div class="row">
+        <table>
+          <thead>
+          <tr>
+            <th>secteur</th>
+            <th>emploi</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let emploi of myemplois">
+            <td>{{emploi.libelleSecteur}}</td>
+            <td>{{emploi.libelle}}</td>
+            <td style="width:20%" ><a class="btn btn-danger" (click)="supprimerEmploi(emploi)">Supprimer</a></td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label for="secteur">Secteur</label>
+          <select (change)="onSecteurChange($event)" id="secteur" name="secteur" class="form-control" [(ngModel)]="sec">
+            <option [ngValue]="undefined" selected="selected">----Select----</option>
+            <option *ngFor="let sec of secteurs" [ngValue]="sec">{{sec.libelle}}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="emploi">Emploi</label>
+          <select (change)="onEmploiChange($event)" id="emploi" name="emploi" class="form-control" [(ngModel)]="em">
+            <option [ngValue]="undefined" selected="selected">----Select----</option>
+            <option *ngFor="let e of emplois" [ngValue]="e">{{e.libelle}}</option>
+          </select>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+
+      <div class="row">
+        <a (click)="addEmploi()">Ajouter emploi</a>
+
+      </div>
+    </fieldset>
+
+    <button class="btn btn-lg btn-primary" (click)="valider()">valider</button>
+  </form>
+</div>
+
+
+

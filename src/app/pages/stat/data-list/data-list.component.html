@@ -1,0 +1,10 @@
+<div class="data-list">
+  <div *ngFor="let item of paginatedData">{{ item.id }}</div>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [itemsPerPage]="itemsPerPage"
+  [totalItems]="totalItems"
+  (pageChanged)="onPageChange($event)"
+></app-pagination>
